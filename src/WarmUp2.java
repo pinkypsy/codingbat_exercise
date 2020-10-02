@@ -1,7 +1,4 @@
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class WarmUp2 {
 
@@ -26,9 +23,94 @@ public class WarmUp2 {
 //        System.out.println(has271(ar3));
 //        System.out.println(doubleX("xaxx"));
 //        System.out.println(last2("hixxhi"));
-        System.out.println(stringMatch("aaxxaaxx", "iaxxai"));
+//        System.out.println(stringMatch("aaxxaaxx", "iaxxai"));
+
+        //array123
+        int[] ar4 = {
+                1, 1, 2, 1, 2, 3
+        };
+//        System.out.println(array123(ar4));
+//        System.out.println(altPairs("ThisThatTheOtherBRi"));
+
+        System.out.println(stringYak("yak123ya"));
+
+    }
 
 
+//    Suppose the string "yak" is unlucky. Given a string, return a version where all the "yak" are removed,
+//    but the "a" can be any char. The "yak" strings will not overlap.
+//    stringYak("yakpak") → "pak"
+//    stringYak("pakyak") → "pak"
+//    stringYak("yak123ya") → "123ya"
+
+    public static String stringYak(String str) {
+        String yak = "yak";
+        return str.replace(yak, "");
+        /*
+        or with gap letter between Y & K
+         String result = "";
+            for (int i=0; i<str.length(); i++) {
+            // Look for i starting a "yak" -- advance i in that case
+            if (i+2<str.length() && str.charAt(i)=='y' && str.charAt(i+2)=='k') {
+                i =  i + 2;
+            } else { // Otherwise do the normal append
+                result = result + str.charAt(i);
+            }
+        }
+        return result;
+        */
+    }
+
+
+//    Given a string, return a string made of the chars at indexes 0,1, 4,5, 8,9 ... so "kittens" yields "kien".
+//    altPairs("kitten") → "kien"
+//    altPairs("Chocolate") → "Chole"
+//    altPairs("CodingHorror") → "Congrr"
+//    altPairs("ThisThatTheOther") → "ThThThth"
+
+    public static String altPairs(String str) {
+
+        StringBuilder stringBuilder = new StringBuilder();
+        int count = 0;
+//we need values like a 0, 1, _, _, 4, 5, _, _, 8, 9, _, _, 12, 13, _, _, etc
+        for (int i = 0; i < str.length(); i++) {
+            if (count == 2) { //when we get next '_' value
+                count = 0;//reset counter
+                i++;//leap over next two iterations (step 1)
+                continue;//leap over next two iterations (step 2)
+            }
+            count++;
+            stringBuilder.append(str.charAt(i));
+        }
+        return stringBuilder.toString();
+        /*
+        ******or with hardcoded values:******
+          List <Integer> arr = new ArrayList<>(Arrays.asList(0,1, 4,5, 8,9, 12, 13));
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < str.length(); i++) {
+            if (arr.contains(i)) stringBuilder.append(str.charAt(i));
+        }
+        return stringBuilder.toString();
+        */
+    }
+
+
+//    Given an array of ints, return true if the sequence of numbers 1, 2, 3 appears in the array somewhere.
+//    array123([1, 1, 2, 3, 1]) → true
+//    array123([1, 1, 2, 4, 1]) → false
+//    array123([1, 1, 2, 1, 2, 3]) → true
+
+    public static boolean array123(int[] nums) {
+
+        if (nums.length < 3) return false;
+
+        for (int i = 0; i < nums.length - 2; i++) {
+            int first = nums[i];
+            int second = nums[i + 1];
+            int third = nums[i + 2];
+            if (first == 1 && second == 2 && third == 3) return true;
+        }
+        return false;
     }
 
 
