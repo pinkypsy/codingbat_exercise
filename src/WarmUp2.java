@@ -84,13 +84,18 @@ public class WarmUp2 {
         }
         return stringBuilder.toString();
         /*
-        ******or with hardcoded values:******
-          List <Integer> arr = new ArrayList<>(Arrays.asList(0,1, 4,5, 8,9, 12, 13));
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < str.length(); i++) {
-            if (arr.contains(i)) stringBuilder.append(str.charAt(i));
-        }
-        return stringBuilder.toString();
+   String result = "";
+   // Run i by 4 to hit 0, 4, 8, ...
+  for (int i=0; i<str.length(); i += 4) {
+    // Append the chars between i and i+2
+    int end = i + 2;
+    if (end > str.length()) {
+      end = str.length();
+    }
+    result = result + str.substring(i, end);
+  }
+
+  return result;
         */
     }
 
