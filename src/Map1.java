@@ -4,10 +4,12 @@ import java.util.Map;
 public class Map1 {
     public static void main(String[] args) {
         Map<String, String> map = new <String, String>HashMap();
-
+//        java.lang.ClassLoader.
 //        map.put("a", "aaa");
+        map.put("a", "aaa");
         map.put("b", "bbb");
         map.put("c", "cake");
+//        map.put("c", "cake");
 //        map.put("potato", "ketchup");
 //        map.put("b", "There");
 //        map.put("d", "hi");
@@ -18,10 +20,72 @@ public class Map1 {
 //        System.out.println(topping2(map));
 //        System.out.println(topping3(map));
 //        System.out.println(mapAB2(map));
-        System.out.println(mapAB3(map));
+//        System.out.println(mapAB3(map));
+        System.out.println(mapAB4(map));
 
 
     }
+
+//    Given an array of strings, return a Map<String, Integer> containing a key for every different string
+//    in the array, and the value is that string's length.
+//    wordLen(["a", "bb", "a", "bb"]) → {"bb": 2, "a": 1}
+//    wordLen(["this", "and", "that", "and"]) → {"that": 4, "and": 3, "this": 4}
+//    wordLen(["code", "code", "code", "bug"]) → {"code": 4, "bug": 3}
+public static Map<String, Integer> wordLen(String[] strings) {
+    Map<String, Integer> map = new HashMap<>();
+    for (String s :
+            strings) {
+        map.put(s, s.length());
+    }
+    return map;
+}
+
+
+    //    Given an array of strings, return a Map<String, Integer> containing a key for every different string
+//    in the array, always with the value 0. For example the string "hello" makes the pair "hello":0.
+//    We'll do more complicated counting later, but for this problem the value is simply 0.
+//    word0(["a", "b", "a", "b"]) → {"a": 0, "b": 0}
+//    word0(["a", "b", "a", "c", "b"]) → {"a": 0, "b": 0, "c": 0}
+//    word0(["c", "b", "a"]) → {"a": 0, "b": 0, "c": 0}
+public static Map<String, Integer> word0(String[] strings) {
+Map<String, Integer> map = new HashMap<>();
+
+    for (String string : strings) {
+        map.put(string, 0);
+    }
+
+return map;
+}
+
+
+//    Modify and return the given map as follows: if the keys "a" and "b" have values that have different lengths,
+//    then set "c" to have the longer value. If the values exist and have the same length,
+//    change them both to the empty string in the map.
+//    mapAB4({"a": "aaa", "b": "bb", "c": "cake"}) → {"a": "aaa", "b": "bb", "c": "aaa"}
+//    mapAB4({"a": "aa", "b": "bbb", "c": "cake"}) → {"a": "aa", "b": "bbb", "c": "bbb"}
+//    mapAB4({"a": "aa", "b": "bbb"}) → {"a": "aa", "b": "bbb", "c": "bbb"}
+
+    public static Map<String, String> mapAB4(Map<String, String> map) {
+        String aVal = map.get("a");
+        String bVal = map.get("b");
+
+        if (aVal == null || bVal == null) return map;
+
+        if (aVal.length() == bVal.length()) {
+            map.put("a", "");
+            map.put("b", "");
+            return map;
+        } else {
+            if (aVal.length() > bVal.length()) {
+                map.put("c", aVal);
+            }
+            if (aVal.length() < bVal.length()) {
+                map.put("c", bVal);
+            }
+        }
+        return map;
+    }
+
 
 //    Modify and return the given map as follows: if exactly one of the keys "a" or "b" has a value in the map (but not both),
 //    set the other to have that same value in the map.
