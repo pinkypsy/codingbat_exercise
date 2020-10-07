@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,24 +22,83 @@ public class Map1 {
 //        System.out.println(topping3(map));
 //        System.out.println(mapAB2(map));
 //        System.out.println(mapAB3(map));
-        System.out.println(mapAB4(map));
+//        System.out.println(mapAB4(map));
+
+        String[] strings = {"aa", "bb", "cc", "aAA", "cCC", "d", "abab", "baobab"};
+//        System.out.println(pairs(strings));
+//        System.out.println(wordCount(strings));
+        System.out.println(firstChar(strings));
 
 
     }
 
-//    Given an array of strings, return a Map<String, Integer> containing a key for every different string
+    //    Given an array of non-empty strings, return a Map<String, String> with a key for every different
+//    first character seen, with the value of all the strings starting with that character appended together
+//    in the order they appear in the array.
+//    firstChar(["salt", "tea", "soda", "toast"]) → {"s": "saltsoda", "t": "teatoast"}
+//    firstChar(["aa", "bb", "cc", "aAA", "cCC", "d"]) → {"a": "aaaAA", "b": "bb", "c": "cccCC", "d": "d"}
+//    firstChar([]) → {}
+    public static Map<String, String> firstChar(String[] strings) {
+        Map<String,String> map = new HashMap<>();
+        for(String line: strings){
+            if (map.get(line.substring(0,1)) != null){
+
+                String result = map.get(line.substring(0,1)) + line;
+                map.put(line.substring(0,1), result);
+            }else{
+                map.put(line.substring(0,1), line);
+            }
+        }
+        return map;
+    }
+
+
+    //    The classic word-count algorithm: given an array of strings, return a Map<String, Integer>
+//    with a key for each different string, with the value the number of times that string appears in the array.
+//    wordCount(["a", "b", "a", "c", "b"]) → {"a": 2, "b": 2, "c": 1}
+//    wordCount(["c", "b", "a"]) → {"a": 1, "b": 1, "c": 1}
+//    wordCount(["c", "c", "c", "c"]) → {"c": 4}
+    public static Map<String, Integer> wordCount(String[] strings) {
+        Map<String, Integer> map = new HashMap<>();
+
+        for (String s :
+                strings) {
+            map.putIfAbsent(s, 0);
+            int count = map.get(s);
+            map.put(s, ++count);
+        }
+
+        return map;
+    }
+
+
+    //    Given an array of non-empty strings, create and return a Map<String, String> as follows:
+//        for each string add its first character as a key with its last character as the value.
+//    pairs(["code", "bug"]) → {"b": "g", "c": "e"}
+//    pairs(["man", "moon", "main"]) → {"m": "n"}
+//    pairs(["man", "moon", "good", "night"]) → {"g": "d", "m": "n", "n": "t"}
+    public static Map<String, String> pairs(String[] strings) {
+        Map<String, String> map = new HashMap<>();
+
+        Arrays.stream(strings).forEach(s -> map.put("" + s.charAt(0), "" + s.charAt(s.length() - 1)));
+
+        return map;
+    }
+
+
+    //    Given an array of strings, return a Map<String, Integer> containing a key for every different string
 //    in the array, and the value is that string's length.
 //    wordLen(["a", "bb", "a", "bb"]) → {"bb": 2, "a": 1}
 //    wordLen(["this", "and", "that", "and"]) → {"that": 4, "and": 3, "this": 4}
 //    wordLen(["code", "code", "code", "bug"]) → {"code": 4, "bug": 3}
-public static Map<String, Integer> wordLen(String[] strings) {
-    Map<String, Integer> map = new HashMap<>();
-    for (String s :
-            strings) {
-        map.put(s, s.length());
+    public static Map<String, Integer> wordLen(String[] strings) {
+        Map<String, Integer> map = new HashMap<>();
+        for (String s :
+                strings) {
+            map.put(s, s.length());
+        }
+        return map;
     }
-    return map;
-}
 
 
     //    Given an array of strings, return a Map<String, Integer> containing a key for every different string
@@ -47,15 +107,15 @@ public static Map<String, Integer> wordLen(String[] strings) {
 //    word0(["a", "b", "a", "b"]) → {"a": 0, "b": 0}
 //    word0(["a", "b", "a", "c", "b"]) → {"a": 0, "b": 0, "c": 0}
 //    word0(["c", "b", "a"]) → {"a": 0, "b": 0, "c": 0}
-public static Map<String, Integer> word0(String[] strings) {
-Map<String, Integer> map = new HashMap<>();
+    public static Map<String, Integer> word0(String[] strings) {
+        Map<String, Integer> map = new HashMap<>();
 
-    for (String string : strings) {
-        map.put(string, 0);
+        for (String string : strings) {
+            map.put(string, 0);
+        }
+
+        return map;
     }
-
-return map;
-}
 
 
 //    Modify and return the given map as follows: if the keys "a" and "b" have values that have different lengths,
