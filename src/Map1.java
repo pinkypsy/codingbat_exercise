@@ -1,6 +1,4 @@
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Map1 {
     public static void main(String[] args) {
@@ -24,13 +22,69 @@ public class Map1 {
 //        System.out.println(mapAB3(map));
 //        System.out.println(mapAB4(map));
 
-        String[] strings = {"aa", "bb", "cc", "aAA", "cCC", "d", "abab", "baobab"};
+        String[] strings = {};
 //        System.out.println(pairs(strings));
 //        System.out.println(wordCount(strings));
-        System.out.println(firstChar(strings));
-
+//        System.out.println(firstChar(strings));
+//        System.out.println(wordAppend(strings));
+        System.out.println(wordMultiple(strings));
 
     }
+
+    //    Given an array of strings, return a Map<String, Boolean> where each different string is a key
+//    and its value is true if that string appears 2 or more times in the array.
+//    wordMultiple(["a", "b", "a", "c", "b"]) → {"a": true, "b": true, "c": false}
+//    wordMultiple(["c", "b", "a"]) → {"a": false, "b": false, "c": false}
+//    wordMultiple(["c", "c", "c", "c"]) → {"c": true}
+    public static Map<String, Boolean> wordMultiple(String[] strings) {
+        Map<String, Boolean> map = new HashMap<>();
+
+
+        for (int i = 0; i < strings.length; i++) {
+            String matcher = strings[i];
+            int count = 0;
+            if (matcher == null) {
+                continue;
+            }
+            for (int j = i; j < strings.length; j++) {
+                if (matcher.equals(strings[j])) count++;
+            }
+            map.putIfAbsent(matcher, count >= 2);
+        }
+        return map;
+    }
+
+
+    //    Loop over the given array of strings to build a result string like this: when a string appears the 2nd,
+//    4th, 6th, etc. time in the array, append the string to the result.
+//    Return the empty string if no string appears a 2nd time.
+//    wordAppend(["a", "b", "a"]) → "a"
+//    wordAppend(["a", "b", "a", "c", "a", "d", "a"]) → "aa"
+//    wordAppend(["a", "", "a"]) → "a"
+//    wordAppend(["a", "b", "b", "b", "a", "c", "a", "a"]) → "baa"
+//    wordAppend(["a", "b", "b", "b", "a", "c", "a", "a", "a", "b", "a"]) → "baaba"
+//    wordAppend(["not", "and", "or", "and", "this", "and", "or", "that", "not"]) → "andornot"
+//    wordAppend(["this", "or", "that", "and", "this", "and", "that"]) → "thisandthat"
+//    wordAppend(["xx", "xx", "yy", "xx", "zz", "yy", "zz", "xx"]) → "xxyyzzxx"
+    public static String wordAppend(String[] strings) {
+        int count = 0;
+        String matcher = "";
+        StringBuilder sbResult = new StringBuilder();
+
+        for (int i = 0; i < strings.length; i++) {
+            matcher = strings[i];
+
+            if (matcher == null) continue;
+
+            for (int j = i; j < strings.length; j++) {
+                if (matcher.equals(strings[j])) count++;
+            }
+            if (count % 2 == 0) sbResult.append(matcher);
+            count = 0;
+        }
+        return sbResult.toString();
+    }
+
 
     //    Given an array of non-empty strings, return a Map<String, String> with a key for every different
 //    first character seen, with the value of all the strings starting with that character appended together
@@ -39,14 +93,14 @@ public class Map1 {
 //    firstChar(["aa", "bb", "cc", "aAA", "cCC", "d"]) → {"a": "aaaAA", "b": "bb", "c": "cccCC", "d": "d"}
 //    firstChar([]) → {}
     public static Map<String, String> firstChar(String[] strings) {
-        Map<String,String> map = new HashMap<>();
-        for(String line: strings){
-            if (map.get(line.substring(0,1)) != null){
+        Map<String, String> map = new HashMap<>();
+        for (String line : strings) {
+            if (map.get(line.substring(0, 1)) != null) {
 
-                String result = map.get(line.substring(0,1)) + line;
-                map.put(line.substring(0,1), result);
-            }else{
-                map.put(line.substring(0,1), line);
+                String result = map.get(line.substring(0, 1)) + line;
+                map.put(line.substring(0, 1), result);
+            } else {
+                map.put(line.substring(0, 1), line);
             }
         }
         return map;
